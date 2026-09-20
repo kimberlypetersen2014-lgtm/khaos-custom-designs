@@ -473,40 +473,116 @@ data-netlify="true"
 <label>Shipping Address</label>
 <textarea name="address" required></textarea>
 
-<label>What would you like?</label>
+<!-- MULTIPLE ITEM ORDER AREA -->
+<div id="items-container">
 
-<select name="product">
-<option>Custom Shirt - $30</option>
-<option>Custom Hat - $15</option>
-<option>Canvas Bag - $20</option>
+<div class="order-item">
+<h3>Item #1</h3>
+
+<label>Product</label>
+<select name="item_1_product" required>
+<option value="">Choose a product</option>
+<option value="Custom Shirt - $30">Custom Shirt - $30</option>
+<option value="Custom Hat - $15">Custom Hat - $15</option>
+<option value="Canvas Bag - $20">Canvas Bag - $20</option>
 </select>
 
 <label>Size</label>
-<input type="text" name="size" placeholder="Enter your size">
+<input
+type="text"
+name="item_1_size"
+placeholder="Enter size or N/A"
+>
 
-<label>Shirt Color</label>
-
-<select name="color">
-<option>Black</option>
-<option>White</option>
-<option>Not Applicable</option>
+<label>Color</label>
+<select name="item_1_color">
+<option value="">Choose a color</option>
+<option value="Black">Black</option>
+<option value="White">White</option>
+<option value="Not Applicable">Not Applicable</option>
 </select>
 
 <label>Premade Design Number</label>
-
 <input
 type="text"
-name="design"
+name="item_1_design"
 placeholder="Example: Design #12"
 >
 
 <label>Design Notes / Custom Request</label>
-
 <textarea
-name="notes"
-placeholder="Tell us what you would like! If ordering multiple items, list the design you want for each item."
+name="item_1_notes"
+placeholder="Add any special instructions for this item"
 ></textarea>
 
+</div>
+
+</div>
+
+<button type="button" id="add-item">
++ Add Another Item
+</button>
+
+<input type="hidden" name="item_count" id="item-count" value="1">
+
+<script>
+let itemCount = 1;
+
+document.getElementById("add-item").addEventListener("click", function () {
+itemCount++;
+
+const container = document.getElementById("items-container");
+
+const item = document.createElement("div");
+item.className = "order-item";
+
+item.innerHTML = `
+<hr>
+
+<h3>Item #${itemCount}</h3>
+
+<label>Product</label>
+<select name="item_${itemCount}_product" required>
+<option value="">Choose a product</option>
+<option value="Custom Shirt - $30">Custom Shirt - $30</option>
+<option value="Custom Hat - $15">Custom Hat - $15</option>
+<option value="Canvas Bag - $20">Canvas Bag - $20</option>
+</select>
+
+<label>Size</label>
+<input
+type="text"
+name="item_${itemCount}_size"
+placeholder="Enter size or N/A"
+>
+
+<label>Color</label>
+<select name="item_${itemCount}_color">
+<option value="">Choose a color</option>
+<option value="Black">Black</option>
+<option value="White">White</option>
+<option value="Not Applicable">Not Applicable</option>
+</select>
+
+<label>Premade Design Number</label>
+<input
+type="text"
+name="item_${itemCount}_design"
+placeholder="Example: Design #12"
+>
+
+<label>Design Notes / Custom Request</label>
+<textarea
+name="item_${itemCount}_notes"
+placeholder="Add any special instructions for this item"
+></textarea>
+`;
+
+container.appendChild(item);
+
+document.getElementById("item-count").value = itemCount;
+});
+</script>
 <button class="submit" type="submit">
 Submit Order Request
 </button>
