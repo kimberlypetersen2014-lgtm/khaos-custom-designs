@@ -605,34 +605,41 @@ document.getElementById("items-container").addEventListener("change", function(e
   }
 });
 
-document.addEventListener("DOMContentLoaded", calculateTotal);
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 const orderForm = document.querySelector('form[name="khaos-order"]');
 
-orderForm.addEventListener("submit", function(event) {
-  event.preventDefault();
+orderForm.addEventListener("submit", function (event) {
+event.preventDefault();
 
-  const formData = new FormData(orderForm);
+const formData = new FormData(orderForm);
 
-  fetch("/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams(formData).toString()
-  })
-  .then(function(response) {
-    if (!response.ok) {
-      throw new Error("Order submission failed");
-    }
+fetch("/", {
+method: "POST",
+headers: {
+"Content-Type": "application/x-www-form-urlencoded"
+},
+body: new URLSearchParams(formData).toString()
+})
+.then(function (response) {
+if (!response.ok) {
+throw new Error("Order submission failed: " + response.status);
+}
 
-    orderForm.style.display = "none";
-    document.getElementById("order-success").style.display = "block";
-    window.location.hash = "order-success";
-  })
-  .catch(function(error) {
-    alert("There was a problem submitting your order. Please try again.");
-    console.error(error);
-  });
+orderForm.style.display = "none";
+
+const successMessage = document.getElementById("order-success");
+if (successMessage) {
+successMessage.style.display = "block";
+}
+
+window.location.hash = "order-success";
+})
+.catch(function (error) {
+console.error("Order submission error:", error);
+alert("There was a problem submitting your order. Please try again.");
+});
+});
 });
 </script>
   <hr>
