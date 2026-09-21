@@ -582,7 +582,56 @@ container.appendChild(item);
 
 document.getElementById("item-count").value = itemCount;
 });
+  function calculateTotal() {
+  let total = 9; // $9 flat-rate shipping
+
+  document.querySelectorAll('.order-item select[name*="_product"]').forEach(function(product) {
+    if (product.value.includes("Shirt")) {
+      total += 30;
+    } else if (product.value.includes("Hat")) {
+      total += 15;
+    } else if (product.value.includes("Canvas Bag")) {
+      total += 20;
+    }
+  });
+
+  document.getElementById("order-total").value = "$" + total.toFixed(2);
+}
+
+document.getElementById("items-container").addEventListener("change", function(event) {
+  if (event.target.matches('select[name*="_product"]')) {
+    calculateTotal();
+  }
+});
+
+calculateTotal();
 </script>
+  <hr>
+
+<h3>Payment & Order Total</h3>
+
+<label>Payment Method</label>
+<select name="payment_method" required>
+  <option value="">Choose payment method</option>
+  <option value="Venmo">Venmo</option>
+  <option value="PayPal">PayPal</option>
+</select>
+
+<labe<label>Order Total</label>
+<input
+  type="text"
+  name="order_total"
+  id="order-total"
+  value="$9.00"
+  readonly
+>
+
+<p><strong>Shipping:</strong> $9 flat rate</p>
+>
+
+<p>
+  <strong>Shipping:</strong> $9 flat rate
+</p>
 <button class="submit" type="submit">
 Submit Order Request
 </button>
