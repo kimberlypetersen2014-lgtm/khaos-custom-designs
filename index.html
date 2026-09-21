@@ -454,9 +454,10 @@ You'll be able to choose a different design for each item in your order.
 <h2>Place an Order</h2>
 
 <form
-name="khaos-order"
-method="POST"
-data-netlify="true"
+  name="khaos-order"
+  method="POST"
+  data-netlify="true"
+  action="/#order-success"
 >
 
 <input type="hidden" name="form-name" value="khaos-order">
@@ -641,10 +642,22 @@ Submit Order Request
 Submitting this form sends an order request. Payment arrangements are completed separately.
 </small>
 </p>
-
+  
+</div>
 </form>
 
+<div id="order-success">
+  <h2>Thank You For Your Order! 💜</h2>
+  <p>
+    Your order request has been submitted to Khaos Custom Designs.
+    We will contact you to confirm your order and payment.
+  </p>
+</div>
+
 </section>
+
+
+
 
 
 <section id="about">
